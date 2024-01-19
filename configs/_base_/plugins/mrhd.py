@@ -1,6 +1,6 @@
 # model settings
 model = dict(
-    video_enc=dict(dims=[2816, 256]),
+    video_enc=dict(dims=[768, 256]),
     pred_head=[
         dict(
             type='SaliencyHead',

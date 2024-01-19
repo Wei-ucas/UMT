@@ -144,6 +144,10 @@ def compute_mr_ap(submission, ground_truth):
             qid2ap_list[qid] = scores
     ap_array = np.array(list(qid2ap_list.values()))
     ap_thds = ap_array.mean(0)
+    print(ap_thds)
+    print(iou_thds)
+    if isinstance(ap_thds, np.float64):
+        ap_thds = [0 for _ in iou_thds]
     iou_thd2ap = dict(zip([str(e) for e in iou_thds], ap_thds))
     iou_thd2ap['average'] = np.mean(ap_thds)
     iou_thd2ap = {k: float(f'{100 * v:.2f}') for k, v in iou_thd2ap.items()}
@@ -272,7 +276,7 @@ def compute_ap_from_tuple(input_tuple):
 
 
 def mk_gt_scores(gt_data):
-    num_clips = int(gt_data['duration'] / 2)
+    num_clips = int(gt_data['duration'] / 1)
     saliency_scores_full_video = np.zeros((num_clips, 3))
     relevant_clip_ids = np.array(gt_data['relevant_clip_ids'])
     saliency_scores_relevant_clips = np.array(gt_data['saliency_scores'])
